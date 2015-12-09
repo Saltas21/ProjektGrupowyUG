@@ -2,13 +2,27 @@
 
 namespace Assets
 {
-    public class PlayerController : Player
+    public class PlayerController : IPlayerController
     {
-        // Update is called once per frame
-        private void Update()
+        private Player _player;
+
+        public void Init(Player player)
         {
-            Vector2 m = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GoTo(m);
+            _player = player;
+        }
+
+        public void OnUpdate()
+        {
+            if (SystemInfo.deviceType == DeviceType.Desktop)
+            {
+                Vector2 t = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                _player.GoTo(t);
+            }
+            else if (Input.touchCount > 0)
+            {
+                var t = Input.GetTouch(0).position;
+                _player.GoTo(t);
+            }
         }
     }
 }
