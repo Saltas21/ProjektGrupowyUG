@@ -61,7 +61,7 @@ namespace Assets
                 {
                     Go(new Vector2(-1, 4.5f));
                 }
-                if (velY > max && Puck.position.x > .2)
+                else if (velY > max && Puck.position.x > .2)
                 {
                     Go(new Vector2(1, 4.5f));
                 }
