@@ -51,8 +51,9 @@ namespace Assets
                     PlayerBlue.Controller = new PlayerController();
                     break;
                 case GameMode.PlayerVsPlayer:
-                    // TODO
-                    break;
+					PlayerRed.Controller = new AiController { Puck = body };
+					PlayerBlue.Controller = new PlayerController();
+					break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
