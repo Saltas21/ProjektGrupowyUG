@@ -4,5 +4,7 @@
     {
         void Init(Player player);
         void OnUpdate();
+		void OnFixedUpdate();
+
     }
 }

@@ -37,6 +37,7 @@ namespace Assets
             _player = player;
             _player.MaxSpeed = 8;
         }
+		public void OnFixedUpdate(){}
 
         public void OnUpdate()
         {

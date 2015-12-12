@@ -5,6 +5,22 @@ namespace Assets
 {
     public class Game : MonoBehaviour
     {
+		
+		#region singletone
+		private static Game _instance;
+		public static Game Instance
+		{
+			get 
+			{
+				if(_instance == null)
+				{
+					_instance = FindObjectOfType<Game>() as Game;
+				}
+				return _instance;
+			}
+		}
+		#endregion
+
         public enum GameMode
         {
             AiVsAi,

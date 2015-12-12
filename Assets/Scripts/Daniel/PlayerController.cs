@@ -10,6 +10,7 @@ namespace Assets
         {
             _player = player;
         }
+		public void OnFixedUpdate(){}
 
         public void OnUpdate()
         {

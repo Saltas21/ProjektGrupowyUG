@@ -8,7 +8,7 @@ namespace Assets
         private bool _active = true;
         private Vector2 _target;
         private IPlayerController _controller;
-		public NetworkView networkView;
+		public NetworkView _networkView;
 
         public bool Active
         {
@@ -54,6 +54,9 @@ namespace Assets
 
         void FixedUpdate()
         {
+			if (Controller != null)
+				Controller.OnFixedUpdate();
+
             Vector2 position = gameObject.transform.position;
             var distance = Vector2.Distance(position, _target);
             var dir = (_target - position).normalized;
