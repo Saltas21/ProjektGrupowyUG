@@ -59,15 +59,19 @@ namespace Assets
             switch (Mode)
             {
                 case GameMode.AiVsAi:
-                    PlayerRed.Controller = new AiController { Puck = body };
+					PlayerBlue.gameObject.SetActive(true);
+					PlayerRed.Controller = new AiController { Puck = body };
                     PlayerBlue.Controller = new AiController { Puck = body, Direction = AiController.PlayingDirection.Up};
-                    break;
+
+				break;
                 case GameMode.PlayerVsAi:
-                    PlayerRed.Controller = new AiController { Puck = body };
+					PlayerBlue.gameObject.SetActive(true);
+					PlayerRed.Controller = new AiController { Puck = body };
                     PlayerBlue.Controller = new PlayerController();
-                    break;
+
+				break;
                 case GameMode.PlayerVsPlayer:
-					PlayerRed.Controller = new PlayerControllerRemotes();
+					PlayerBlue.gameObject.SetActive(false);
 					PlayerBlue.Controller = new PlayerControllerRemotes();
 					break;
                 default:

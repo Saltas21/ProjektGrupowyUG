@@ -24,13 +24,6 @@ namespace Assets
 		MyTransform[] BufferedTransform = new MyTransform[20];
 		int TimeStampCount;
 
-
-		public void Start(){
-			NetworkConnectionError error = Initialize_Server(1234,2,"Multi", "Nazwa gry");
-			if(error != NetworkConnectionError.NoError){
-				Debug.LogError("Nie utworzono serwera");
-			}		
-		}
 		public void OnUpdate()
 		{
 
@@ -38,7 +31,6 @@ namespace Assets
 
 		public void OnFixedUpdate()
 		{
-			Debug.Log("fix");
 			if(Game.Instance.Active)
 				InputManager();
         }
@@ -56,8 +48,7 @@ namespace Assets
 					var t = Input.GetTouch(0).position;
 					_player.GoTo(t);
 				}
-			}
-			else if(_player.tag == "Up"){
+			
 				double interpolationTime = Network.time - InterpolationBackTime;
 				if (BufferedTransform[0].timestamp > interpolationTime){
 					for(int i=0; i<TimeStampCount; i++){
@@ -69,7 +60,7 @@ namespace Assets
 							if (length > 0.0001){
 								t = (float)((interpolationTime - lhs.timestamp) / length);
 							}
-							_player.GoTo(Vector3.Lerp(lhs.position, rhs.position, t));
+							Game.Instance.PlayerRed.GoTo(Vector3.Lerp(lhs.position, rhs.position, t));
 							return;
 						}
 					}
@@ -78,15 +69,11 @@ namespace Assets
 					MyTransform latest = BufferedTransform[0];
 					float extrapolationLength = (float)(interpolationTime - latest.timestamp);
 					if (extrapolationLength < ExtrapolationLimit){
-						_player.GoTo( latest.position + latest.velocity * extrapolationLength);
+						Game.Instance.PlayerRed.GoTo( latest.position + latest.velocity * extrapolationLength);
 					}
 				}
 			}
-			else{
-#if UNITY_EDITOR
-				Debug.LogError("Nie znaleziono gracza: "+ _player.tag);
-#endif
-			}
+
 		}
 		void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info) {
 			if (stream.isWriting)
@@ -114,27 +101,6 @@ namespace Assets
 				BufferedTransform[0] = myTransform;
 				TimeStampCount = Mathf.Min(TimeStampCount + 1,BufferedTransform.Length);
 			}
-		}
-
-		public static NetworkConnectionError Initialize_Server (int Port, int MaxPlayer, string gameType, string gameName) {
-			Network.isMessageQueueRunning = true;
-			bool useNat = !Network.HavePublicAddress();
-			NetworkConnectionError error = Network.InitializeServer(MaxPlayer-1, Port, useNat);
-			if (error == NetworkConnectionError.NoError){
-				Network.minimumAllocatableViewIDs = 200;
-			}
-			return error;
-		}
-
-		public static NetworkConnectionError ConnectToServer(int Port, string IP, string Map){
-			Network.isMessageQueueRunning = true;
-			NetworkConnectionError error = Network.Connect(IP, Port);
-			if (error == NetworkConnectionError.NoError){
-				Network.isMessageQueueRunning = false;
-				Application.LoadLevel(Map);
-				Network.isMessageQueueRunning = true;
-			}
-			return error;
 		}
     }
 }
