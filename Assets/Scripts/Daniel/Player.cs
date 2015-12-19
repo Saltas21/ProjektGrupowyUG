@@ -8,6 +8,7 @@ namespace Assets
         private bool _active = true;
         private Vector2 _target;
         private IPlayerController _controller;
+		public NetworkView _networkView;
 
         public bool Active
         {

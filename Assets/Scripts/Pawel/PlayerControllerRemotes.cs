@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
+using System;
+using System.Collections;
+
+
 
 namespace Assets
 {
-	public class PlayerControllerRemotes : IPlayerController
+	public class PlayerControllerRemotes : MonoBehaviour, IPlayerController
 	{
         private Player _player;
 
@@ -10,6 +14,7 @@ namespace Assets
         {
             _player = player;
         }
+
 
 		public double InterpolationBackTime = 0.1;
 		public double ExtrapolationLimit = 0.5;
@@ -78,6 +83,7 @@ namespace Assets
 		void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info) {
 			if (stream.isWriting)
 			{
+				Debug.LogError("writing");
 				Vector3 pos = _player.Body.position;
 				Vector3 velocity = _player.Body.velocity;
 				stream.Serialize(ref pos);
@@ -85,6 +91,8 @@ namespace Assets
 			}
 			else
 			{
+				Debug.LogError("reading");
+
 				Vector3 pos = Vector3.zero;
 				Vector3 velocity = Vector3.zero;
 				stream.Serialize(ref pos);
