@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets
 {
@@ -69,6 +70,7 @@ namespace Assets
 
 				break;
                 case GameMode.PlayerVsPlayer:
+					PlayerRed.Controller = new PlayerControllerRemotes();
 					PlayerBlue.Controller = new PlayerControllerRemotes();
 					break;
                 default:

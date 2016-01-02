@@ -8,7 +8,6 @@ namespace Assets
         private bool _active = true;
         private Vector2 _target;
         private IPlayerController _controller;
-		public NetworkView _networkView;
 
         public bool Active
         {
@@ -74,7 +73,7 @@ namespace Assets
         {
             if (!_active) return;
             Done = false;
-            _target = Bounds.ClosestPoint(target);
+			_target = Bounds.ClosestPoint(target);
         }
     }
 }
