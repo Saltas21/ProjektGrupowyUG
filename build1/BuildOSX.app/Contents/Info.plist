@@ -11,7 +11,11 @@
 	<key>CFBundleIconFile</key>
 	<string>PlayerIcon.icns</string>
 	<key>CFBundleIdentifier</key>
+<<<<<<< HEAD
 	<string>unity.DefaultCompany.AirHockey</string>
+=======
+	<string>unity.UG.AirHockey</string>
+>>>>>>> 7f3a04702a37f7b06af74b5668c63730edf237b2
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

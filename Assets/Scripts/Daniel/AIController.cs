@@ -37,6 +37,7 @@ namespace Assets
             _player = player;
             _player.MaxSpeed = 8;
         }
+		public void OnFixedUpdate(){}
 
         public void OnUpdate()
         {
@@ -61,7 +62,7 @@ namespace Assets
                 {
                     Go(new Vector2(-1, 4.5f));
                 }
-                else if (velY > max && Puck.position.x > .2)
+                if (velY > max && Puck.position.x > .2)
                 {
                     Go(new Vector2(1, 4.5f));
                 }

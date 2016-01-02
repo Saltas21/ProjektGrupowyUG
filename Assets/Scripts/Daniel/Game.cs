@@ -5,6 +5,22 @@ namespace Assets
 {
     public class Game : MonoBehaviour
     {
+		
+		#region singletone
+		private static Game _instance;
+		public static Game Instance
+		{
+			get 
+			{
+				if(_instance == null)
+				{
+					_instance = FindObjectOfType<Game>() as Game;
+				}
+				return _instance;
+			}
+		}
+		#endregion
+
         public enum GameMode
         {
             AiVsAi,
@@ -43,16 +59,18 @@ namespace Assets
             switch (Mode)
             {
                 case GameMode.AiVsAi:
-                    PlayerRed.Controller = new AiController { Puck = body };
+					PlayerRed.Controller = new AiController { Puck = body };
                     PlayerBlue.Controller = new AiController { Puck = body, Direction = AiController.PlayingDirection.Up};
-                    break;
+
+				break;
                 case GameMode.PlayerVsAi:
-                    PlayerRed.Controller = new AiController { Puck = body };
+					PlayerRed.Controller = new AiController { Puck = body };
                     PlayerBlue.Controller = new PlayerController();
-                    break;
+
+				break;
                 case GameMode.PlayerVsPlayer:
-                    // TODO
-                    break;
+					PlayerBlue.Controller = new PlayerControllerRemotes();
+					break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

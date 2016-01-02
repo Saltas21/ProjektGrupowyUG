@@ -15,6 +15,7 @@ namespace Assets
 
         void FixedUpdate()
         {
+			if(Network.isServer)
             if (_body.velocity.magnitude > MaxSpeed)
             {
                 _body.velocity = _body.velocity.normalized * MaxSpeed;
