@@ -26,17 +26,20 @@ namespace Assets
         private readonly Vector2 _stuckDestination = new Vector2(0, 4.5f);
 
         private int _m = 1;
-        private Player _player;
+		private SinglePlayer _player;
         private bool _isStuck = false;
         private Vector2 _oldPosition;
         private float _stuckTime;
 
         // Update is called once per frame
-        public void Init(Player player)
+		public void Init(SinglePlayer player)
         {
             _player = player;
             _player.MaxSpeed = 8;
         }
+		public void Init(Player player)
+		{
+		}
 		public void OnFixedUpdate(){}
 
         public void OnUpdate()

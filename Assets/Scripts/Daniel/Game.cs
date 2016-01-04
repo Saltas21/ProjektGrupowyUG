@@ -46,8 +46,8 @@ namespace Assets
 
         public GameMode Mode;
         public GameObject Puck;
-        public Player PlayerRed;
-        public Player PlayerBlue;
+        public SinglePlayer PlayerRed;
+		public SinglePlayer PlayerBlue;
         private bool _active = true;
         private float _delay;
         private float _resetTime = 1.5f;
@@ -70,7 +70,7 @@ namespace Assets
 
 				break;
                 case GameMode.PlayerVsPlayer:
-					PlayerRed.Controller = new PlayerControllerRemotes();
+				//	PlayerRed.Controller = new PlayerControllerRemotes();
 					PlayerBlue.Controller = new PlayerControllerRemotes();
 					break;
                 default:
