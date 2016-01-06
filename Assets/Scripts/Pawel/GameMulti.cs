@@ -78,6 +78,7 @@ namespace Assets
             }
         }
 
+
         private void FixedUpdate()
         {
             if (Active)
@@ -98,6 +99,9 @@ namespace Assets
                 }
             }
         }
+		void Update(){
+			if(Input.GetKeyUp(KeyCode.Escape)) Application.LoadLevel(0);
+		}
 
         private void RedScored()
         {

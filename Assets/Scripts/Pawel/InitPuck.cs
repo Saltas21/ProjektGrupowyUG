@@ -11,6 +11,7 @@ namespace Assets
 			if(!isServer){
 				puck.enabled = false;
 				collider.enabled = false;
+			//	gameObject.transform.localRotation = Quaternion.Euler(0,0,180);
 			}
 		}
 	}

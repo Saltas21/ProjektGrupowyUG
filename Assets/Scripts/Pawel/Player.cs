@@ -6,10 +6,12 @@ namespace Assets
 {
     public class Player : NetworkBehaviour
     {
-        private Vector3 _initPosition;
+        public Vector3 _initPosition;
         private bool _active = true;
         private Vector2 _target;
         private IPlayerController _controller;
+		public CircleCollider2D collider;
+		public SpriteRenderer sprite;
 
         public bool Active
         {
@@ -43,7 +45,6 @@ namespace Assets
         void Start()
         {
             Body = gameObject.GetComponent<Rigidbody2D>();
-            _initPosition = gameObject.transform.position;
             _target = _initPosition;
         }
 

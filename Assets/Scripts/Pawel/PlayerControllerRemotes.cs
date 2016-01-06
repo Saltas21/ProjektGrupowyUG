@@ -31,33 +31,25 @@ namespace Assets
 
 
 		void InputManager () {
-			if(!_player.isServer){
-				if (SystemInfo.deviceType == DeviceType.Desktop)
-				{
-					Vector2 t = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-					GameMulti.Instance.PlayerRed.GoTo(t);
-				}
-				else if (Input.touchCount > 0)
-				{
-					var t = Input.GetTouch(0).position;
-					GameMulti.Instance.PlayerRed.GoTo(t);
-				}
-			}
-			else{
-				if (SystemInfo.deviceType == DeviceType.Desktop)
-				{
-					Vector2 t = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-					GameMulti.Instance.PlayerBlue.GoTo(t);
-					
-				}
-				else if (Input.touchCount > 0)
-				{
-					var t = Input.GetTouch(0).position;
-					GameMulti.Instance.PlayerBlue.GoTo(t);
-				}
-				
-			}
+			if (SystemInfo.deviceType == DeviceType.Desktop)
+			{
+				if(!Input.GetKey(KeyCode.Mouse0)) return;
+				Vector2 t = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				GameMulti.Instance.PlayerBlue.GoTo(t);
+				t.y = -t.y;
+				t.x = -t.x;
+				if(GameMulti.Instance.PlayerRed != null)	GameMulti.Instance.PlayerRed.GoTo(t);
 
+			}
+			else if (Input.touchCount > 0)
+			{
+				var t = Input.GetTouch(0).position;
+				GameMulti.Instance.PlayerBlue.GoTo(t);
+				t.y = -t.y;
+				t.x = -t.x;
+				if(GameMulti.Instance.PlayerRed != null)	GameMulti.Instance.PlayerRed.GoTo(t);
+
+			}
 		}
     }
 }
