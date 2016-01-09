@@ -24,7 +24,7 @@ namespace Assets
             }
             else if (Input.touchCount > 0)
             {
-                var t = Input.GetTouch(0).position;
+				var t = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
                 _player.GoTo(t);
             }
         }
