@@ -1,10 +1,27 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets
 {
     public class Game : MonoBehaviour
     {
+		
+		#region singletone
+		private static Game _instance;
+		public static Game Instance
+		{
+			get 
+			{
+				if(_instance == null)
+				{
+					_instance = FindObjectOfType<Game>() as Game;
+				}
+				return _instance;
+			}
+		}
+		#endregion
+
         public enum GameMode
         {
             AiVsAi,
@@ -29,8 +46,8 @@ namespace Assets
 
         public GameMode Mode;
         public GameObject Puck;
-        public Player PlayerRed;
-        public Player PlayerBlue;
+        public SinglePlayer PlayerRed;
+		public SinglePlayer PlayerBlue;
         private bool _active = true;
         private float _delay;
         private float _resetTime = 1.5f;
@@ -43,16 +60,19 @@ namespace Assets
             switch (Mode)
             {
                 case GameMode.AiVsAi:
-                    PlayerRed.Controller = new AiController { Puck = body };
+					PlayerRed.Controller = new AiController { Puck = body };
                     PlayerBlue.Controller = new AiController { Puck = body, Direction = AiController.PlayingDirection.Up};
-                    break;
+
+				break;
                 case GameMode.PlayerVsAi:
-                    PlayerRed.Controller = new AiController { Puck = body };
+					PlayerRed.Controller = new AiController { Puck = body };
                     PlayerBlue.Controller = new PlayerController();
-                    break;
+
+				break;
                 case GameMode.PlayerVsPlayer:
-                    // TODO
-                    break;
+				//	PlayerRed.Controller = new PlayerControllerRemotes();
+					PlayerBlue.Controller = new PlayerControllerRemotes();
+					break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -78,6 +98,9 @@ namespace Assets
                 }
             }
         }
+		void Update(){
+			if(Input.GetKeyUp(KeyCode.Escape)) Application.LoadLevel(0);
+		}
 
         private void RedScored()
         {

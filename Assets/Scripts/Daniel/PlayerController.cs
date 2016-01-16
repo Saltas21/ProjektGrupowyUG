@@ -4,12 +4,16 @@ namespace Assets
 {
     public class PlayerController : IPlayerController
     {
-        private Player _player;
+		private SinglePlayer _player;
 
-        public void Init(Player player)
+        public void Init(SinglePlayer player)
         {
             _player = player;
         }
+		public void Init(Player player)
+		{
+		}
+		public void OnFixedUpdate(){}
 
         public void OnUpdate()
         {
@@ -20,7 +24,7 @@ namespace Assets
             }
             else if (Input.touchCount > 0)
             {
-                var t = Input.GetTouch(0).position;
+				var t = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
                 _player.GoTo(t);
             }
         }
